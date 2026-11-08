@@ -241,7 +241,7 @@ var l=document.querySelectorAll(".ag-l");for(i=0;i<l.length;i++){var o=EX===l[i]
 if(EX&&EL){var bx=document.querySelector('.agbox[data-k="'+EX+'"]');if(bx&&bx.scrollIntoView)bx.scrollIntoView({block:"nearest"})}}
 function tot(){var t=0,n=0;cart.forEach(function(l){t+=Math.round(uP(l)*100)*l.q;n+=l.q});return{t:t/100,n:n}}
 function updBar(){var x=tot(),z=nudge(x);document.getElementById("cb").innerHTML=x.n?'<div class="cart">'+(z?'<div class="hint2">'+z+'</div>':'')+'<button class="cartbtn" data-a="open"><span>Vedi ordine · '+x.n+(x.n==1?' prodotto':' prodotti')+'</span><b>'+eur(x.t)+'</b></button></div>':""}
-function chg(k,d){if(d>0){if(itemOf(k).a){mergeLines();var nl={k:k,a:[],q:1};cart.push(nl);EL=nl;EX=k;EALL=false;renderEx()}else addLine(k,[],1)}else{for(var i=cart.length-1;i>=0;i--)if(cart[i].k===k){cart[i].q--;if(cart[i].q<=0)cart.splice(i,1);break}}refresh(k)}
+function chg(k,d){if(d>0){addLine(k,[],1)}else{for(var i=cart.length-1;i>=0;i--)if(cart[i].k===k){cart[i].q--;if(cart[i].q<=0)cart.splice(i,1);break}}refresh(k)}
 function lchg(i,d){var l=cart[i];if(!l)return;l.q+=d;var k=l.k;if(l.q<=0)cart.splice(i,1);refresh(k)}
 function sheet(){var x=tot(),el=document.getElementById("sh"),o=el.querySelector(".sheet"),sc=o?o.scrollTop:0;
 if(!open||!x.n){open=false;el.innerHTML="";document.body.style.overflow="";return}
@@ -341,7 +341,7 @@ var d=document.documentElement.cloneNode(true);
 d.querySelector("#app").innerHTML="";d.querySelector("#cb").innerHTML="";d.querySelector("#sh").innerHTML="";d.querySelector("#dg").innerHTML="";d.querySelector("#pin").innerHTML="";d.querySelector("body").removeAttribute("style");
 d.querySelector("#menu-data").textContent=JSON.stringify(S).replace(/</g,"\\u003c");
 var b=new Blob(["<!DOCTYPE html>\n"+d.outerHTML],{type:"text/html"}),a=document.createElement("a");
-a.href=URL.createObjectURL(b);a.download="menu-quality.html";document.body.appendChild(a);a.click();a.remove();
+a.href=URL.createObjectURL(b);a.download="index.html";document.body.appendChild(a);a.click();a.remove();
 }
 function mv(a,i,j){if(j<0||j>=a.length)return;var t=a[i];a[i]=a[j];a[j]=t}
 app.addEventListener("input",function(e){
