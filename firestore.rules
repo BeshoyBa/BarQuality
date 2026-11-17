@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Contenuti del sito: li legge chiunque, li scrive SOLO l'amministratore.
+    // Nel sito, dopo l'accesso, in fondo alla pagina compare "UID: ...":
+    // copialo e incollalo al posto di INCOLLA_QUI_UID_ADMIN (tra le virgolette, senza spazi).
+    match /site/{docId} {
+      allow read: if true;
+      allow create, update: if request.auth != null
+        && request.auth.uid == "INCOLLA_QUI_UID_ADMIN"
+        && request.resource.data.keys().hasOnly(['json', 'updatedAt', 'by'])
+        && request.resource.data.json is string
+        && request.resource.data.json.size() < 900000;
+      allow delete: if false;
+    }
+
+    // Tutto il resto è chiuso.
+    match /{path=**} {
+      allow read, write: if false;
+    }
+  }
+}
